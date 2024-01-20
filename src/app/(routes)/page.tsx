@@ -10,7 +10,7 @@ import Question from '@components/question/question';
 import AbsConfig from '@assets/config/abs-config.json';
 import HandConfig from '@assets/config/hand-config.json';
 
-export function PreloadResources() {
+const PreloadResources = () => {
   // Load default image
   ReactDOM.preload('/image/' + AbsConfig.default, {
     as: 'image',
@@ -58,7 +58,7 @@ export function PreloadResources() {
   }
 
   return null;
-}
+};
 
 const Page: FC = () => {
   const [questionState, setQuestionState] = useState<string>('abs');
