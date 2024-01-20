@@ -52,21 +52,6 @@ const InteractiveCanvas: FC<InteractiveCanvasProps> = ({
     []
   );
 
-  // const findMatchingKey = useCallback((x: number, y: number, shapes: PolygonRecord) => {
-  //   for (const key in shapes) {
-  //     if (shapes.hasOwnProperty(key)) {
-  //       const polygons = shapes[key];
-  //       for (const polygon of polygons) {
-  //         if (isPointInsidePolygon(x, y, polygon)) {
-  //           return key;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   return null; // Return null if no match is found
-  // }, []);
-
   const handleCanvasClick = useCallback(
     (event: MouseEvent) => {
       if (!canvasRef.current) return;
@@ -76,11 +61,11 @@ const InteractiveCanvas: FC<InteractiveCanvasProps> = ({
       const relativeY = (event.clientY - canvasRect.top) * (boundary[1] / canvasRect.height);
 
       // Log pressed coordinates
-      console.log('Pressed Coordinates:', { x: Math.floor(relativeX), y: Math.floor(relativeY) });
+      // console.log('Pressed Coordinates:', { x: Math.floor(relativeX), y: Math.floor(relativeY) });
 
       // Find matching key
       const matchingKey = findMatchingKey(Math.floor(relativeX), Math.floor(relativeY), mapping);
-      console.log('Matching Key:', matchingKey);
+      // console.log('Matching Key:', matchingKey);
 
       onChange(matchingKey);
     },
