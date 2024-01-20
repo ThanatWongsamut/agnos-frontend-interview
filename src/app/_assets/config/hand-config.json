@@ -4,8 +4,8 @@
   "mapping": [
     {
       "name": "dip",
-      "active": "dip-active.png",
-      "highlight": "dip-highlight.png",
+      "active": ["dip-active.png"],
+      "highlight": ["dip-highlight.png"],
       "polygons": [
         [
           { "x": 170, "y": 230 },
@@ -35,8 +35,8 @@
     },
     {
       "name": "pip",
-      "active": "pip-active.png",
-      "highlight": "pip-highlight.png",
+      "active": ["pip-active.png"],
+      "highlight": ["pip-highlight.png"],
       "polygons": [
         [
           { "x": 200, "y": 305 },
@@ -72,8 +72,8 @@
     },
     {
       "name": "mcp",
-      "active": "mcp-active.png",
-      "highlight": "mcp-highlight.png",
+      "active": ["mcp-active.png"],
+      "highlight": ["mcp-highlight.png"],
       "polygons": [
         [
           { "x": 225, "y": 390 },
@@ -109,8 +109,8 @@
     },
     {
       "name": "others",
-      "active": "",
-      "highlight": "others-highlight.png",
+      "active": [],
+      "highlight": ["others-highlight.png"],
       "polygons": [
         [
           { "x": 110, "y": 880 },

@@ -2,10 +2,10 @@
 
 import { FC, useState } from 'react';
 
-import { Mapping, ShapeDescription } from '@/utils/types';
-
 import Image from 'next/image';
-import InteractiveCanvas from '../common/interactiveCanvas';
+import InteractiveCanvas from '@components/common/interactiveCanvas';
+
+import { Mapping, ShapeDescription } from '@/utils/types';
 
 interface QuestionProps {
   header: string;
@@ -19,16 +19,16 @@ interface QuestionProps {
 
 const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
   const [selected, setSelected] = useState<string>('');
-  const [active, setActive] = useState<string>('');
-  const [highlight, setHighlight] = useState<string>('');
+  const [active, setActive] = useState<string[]>([]);
+  const [highlight, setHighlight] = useState<string[]>([]);
 
   const canvasClickHandler = (shape: ShapeDescription | null) => {
     if (shape) {
       if (shape.name === selected) {
         // If the clicked shape is already selected, deselect it
         setSelected('');
-        setActive('');
-        setHighlight('');
+        setActive([]);
+        setHighlight([]);
         onChange('');
       } else {
         // If a different shape is clicked, update the selection
@@ -43,7 +43,7 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
   return (
     <>
       <div className="flex flex-col items-center h-full">
-        <span className="text-2xl font-medium text-gray-600">{header}</span>
+        <span className="text-lg xs:text-2xl font-medium text-gray-600 text-center">{header}</span>
         <div className="relative w-[339px] h-[400px] sm:h-[600px] sm:w-[509px]">
           {/* Interactive Canvas */}
           <div className="absolute z-30 top-0 left-0 h-full">
@@ -55,28 +55,39 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
           </div>
 
           {/* Caption Image */}
-          {active != '' && (
-            <div className="absolute z-20 top-0 left-0 w-full h-full">
-              <Image
-                src={`/image/${active}`}
-                fill={true}
-                style={{ objectFit: 'contain' }}
-                alt="caption"
-              />
-            </div>
-          )}
+
+          {active.map((path) => {
+            return (
+              <div
+                className="absolute z-20 top-0 left-0 w-full h-full animate-fade-in transition-opacity"
+                key={path}
+              >
+                <Image
+                  src={`/image/${path}`}
+                  fill={true}
+                  style={{ objectFit: 'contain' }}
+                  alt="caption"
+                />
+              </div>
+            );
+          })}
 
           {/* Highlight Image */}
-          {highlight != '' && (
-            <div className="absolute z-10 top-0 left-0 w-full h-full">
-              <Image
-                src={`/image/${highlight}`}
-                fill={true}
-                style={{ objectFit: 'contain' }}
-                alt="active"
-              />
-            </div>
-          )}
+          {highlight.map((path) => {
+            return (
+              <div
+                className="absolute z-20 top-0 left-0 w-full h-full animate-fade-in transition-opacity"
+                key={path}
+              >
+                <Image
+                  src={`/image/${path}`}
+                  fill={true}
+                  style={{ objectFit: 'contain' }}
+                  alt="active"
+                />
+              </div>
+            );
+          })}
 
           {/* Base Image */}
           <Image
