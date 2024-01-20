@@ -1,12 +1,12 @@
 'use client';
 
-import { PolygonRecord } from '@/utils/types';
+import { Coordinate, Mapping, ShapeDescription } from '@/utils/types';
 import { FC, useCallback, useEffect, useRef } from 'react';
 
 interface InteractiveCanvasProps {
   boundary: number[];
-  mapping: PolygonRecord;
-  onChange?: (key: string) => void;
+  mapping: Mapping[];
+  onChange?: (key: ShapeDescription | null) => void;
 }
 
 const InteractiveCanvas: FC<InteractiveCanvasProps> = ({
@@ -16,14 +16,14 @@ const InteractiveCanvas: FC<InteractiveCanvasProps> = ({
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const isPointInsidePolygon = (x: number, y: number, polygon: number[][]) => {
+  const isPointInsidePolygon = (x: number, y: number, polygon: Coordinate[]) => {
     let isInside = false;
 
     for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-      const xi = polygon[i][0];
-      const yi = polygon[i][1];
-      const xj = polygon[j][0];
-      const yj = polygon[j][1];
+      const xi = polygon[i].x;
+      const yi = polygon[i].y;
+      const xj = polygon[j].x;
+      const yj = polygon[j].y;
 
       if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
         isInside = !isInside;
@@ -33,20 +33,39 @@ const InteractiveCanvas: FC<InteractiveCanvasProps> = ({
     return isInside;
   };
 
-  const findMatchingKey = useCallback((x: number, y: number, shapes: PolygonRecord) => {
-    for (const key in shapes) {
-      if (shapes.hasOwnProperty(key)) {
-        const polygons = shapes[key];
-        for (const polygon of polygons) {
+  const findMatchingKey = useCallback(
+    (x: number, y: number, mapping: Mapping[]): ShapeDescription | null => {
+      for (const shape of mapping) {
+        for (const polygon of shape.polygons) {
           if (isPointInsidePolygon(x, y, polygon)) {
-            return key;
+            return {
+              name: shape.name,
+              active: shape.active,
+              highlight: shape.highlight,
+            };
           }
         }
       }
-    }
 
-    return null; // Return null if no match is found
-  }, []);
+      return null; // Return null if no match is found
+    },
+    []
+  );
+
+  // const findMatchingKey = useCallback((x: number, y: number, shapes: PolygonRecord) => {
+  //   for (const key in shapes) {
+  //     if (shapes.hasOwnProperty(key)) {
+  //       const polygons = shapes[key];
+  //       for (const polygon of polygons) {
+  //         if (isPointInsidePolygon(x, y, polygon)) {
+  //           return key;
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   return null; // Return null if no match is found
+  // }, []);
 
   const handleCanvasClick = useCallback(
     (event: MouseEvent) => {
@@ -63,7 +82,7 @@ const InteractiveCanvas: FC<InteractiveCanvasProps> = ({
       const matchingKey = findMatchingKey(Math.floor(relativeX), Math.floor(relativeY), mapping);
       console.log('Matching Key:', matchingKey);
 
-      onChange(matchingKey || '');
+      onChange(matchingKey);
     },
     [boundary, findMatchingKey, mapping, onChange]
   );
