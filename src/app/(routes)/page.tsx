@@ -10,11 +10,16 @@ import Question from '@components/question/question';
 import AbsConfig from '@assets/config/abs-config.json';
 import HandConfig from '@assets/config/hand-config.json';
 
+const createSrcSet = (src: string) => {
+  return `/_next/image?url=%2Fimage%2F${src}&w=640&q=75 640w, /_next/image?url=%2Fimage%2F${src}&w=750&q=75 750w, /_next/image?url=%2Fimage%2F${src}&w=828&q=75 828w, /_next/image?url=%2Fimage%2F${src}&w=1080&q=75 1080w, /_next/image?url=%2Fimage%2F${src}&w=1200&q=75 1200w, /_next/image?url=%2Fimage%2F${src}&w=1920&q=75 1920w, /_next/image?url=%2Fimage%2F${src}&w=2048&q=75 2048w, /_next/image?url=%2Fimage%2F${src}&w=3840&q=75 3840w`;
+};
+
 const PreloadResources = () => {
   // Load default image
   ReactDOM.preload('/image/' + AbsConfig.default, {
     as: 'image',
     fetchPriority: 'high',
+    imageSrcSet: createSrcSet(AbsConfig.default),
   });
 
   // Load others images
@@ -23,6 +28,7 @@ const PreloadResources = () => {
       ReactDOM.preload('/image/' + activePath, {
         as: 'image',
         fetchPriority: 'high',
+        imageSrcSet: createSrcSet(activePath),
       });
     }
 
@@ -30,6 +36,7 @@ const PreloadResources = () => {
       ReactDOM.preload('/image/' + highlightPath, {
         as: 'image',
         fetchPriority: 'high',
+        imageSrcSet: createSrcSet(highlightPath),
       });
     }
   }
@@ -38,6 +45,7 @@ const PreloadResources = () => {
   ReactDOM.preload('/image/' + HandConfig.default, {
     as: 'image',
     fetchPriority: 'high',
+    imageSrcSet: createSrcSet(HandConfig.default),
   });
 
   // Load others images
@@ -46,6 +54,7 @@ const PreloadResources = () => {
       ReactDOM.preload('/image/' + activePath, {
         as: 'image',
         fetchPriority: 'high',
+        imageSrcSet: createSrcSet(activePath),
       });
     }
 
@@ -53,6 +62,7 @@ const PreloadResources = () => {
       ReactDOM.preload('/image/' + highlightPath, {
         as: 'image',
         fetchPriority: 'high',
+        imageSrcSet: createSrcSet(highlightPath),
       });
     }
   }
