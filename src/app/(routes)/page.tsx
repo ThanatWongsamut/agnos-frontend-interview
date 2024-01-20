@@ -13,21 +13,59 @@ import HandConfig from '@assets/config/hand-config.json';
 
 const Page: FC = () => {
   const [questionState, setQuestionState] = useState<string>('abs');
+  const [absAnswer, setAbsAnswer] = useState<string>('');
+  const [fingerAnswer, setFingerAnswer] = useState<string>('');
+
+  const absChangeHandler = (key: string) => {
+    setAbsAnswer(key);
+  };
+
+  const nextHandler = () => {
+    setQuestionState('finger');
+  };
+
+  const fingerChangeHandler = (key: string) => {
+    setFingerAnswer(key);
+  };
+
+  const submitHandler = () => {
+    console.log('Submitting result');
+  };
 
   return (
     <main className="flex h-screen flex-col items-center justify-center bg-white">
       <div className="flex flex-col gap-4 w-full px-6 sm:w-[640px] md:w-[768px] mx-auto justify-center items-center">
         <Card className="h-full">
           {questionState == 'abs' && (
-            <Question header="จุดไหนที่คุณปวดนิ้วมากที่สุด ?" config={AbsConfig} />
+            <Question
+              header="จุดไหนที่คุณปวดท้องมากที่สุด ?"
+              config={AbsConfig}
+              onChange={absChangeHandler}
+            />
           )}
 
           {questionState == 'finger' && (
-            <Question header="จุดไหนที่คุณปวดนิ้วมากที่สุด ?" config={HandConfig} />
+            <Question
+              header="จุดไหนที่คุณปวดนิ้วมากที่สุด ?"
+              config={HandConfig}
+              onChange={fingerChangeHandler}
+            />
           )}
         </Card>
 
-        <Button full> ต่อไป </Button>
+        <>
+          {questionState == 'abs' && (
+            <Button full disabled={absAnswer == ''} onClick={nextHandler}>
+              ต่อไป
+            </Button>
+          )}
+
+          {questionState == 'finger' && (
+            <Button full disabled={fingerAnswer == ''} onClick={submitHandler}>
+              ยืนยัน
+            </Button>
+          )}
+        </>
       </div>
     </main>
   );

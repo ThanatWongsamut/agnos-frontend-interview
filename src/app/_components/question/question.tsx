@@ -14,9 +14,10 @@ interface QuestionProps {
     default: string;
     mapping: Mapping[];
   };
+  onChange: (answer: string) => void;
 }
 
-const Question: FC<QuestionProps> = ({ header, config }) => {
+const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
   const [selected, setSelected] = useState<string>('');
   const [active, setActive] = useState<string>('');
   const [highlight, setHighlight] = useState<string>('');
@@ -28,11 +29,13 @@ const Question: FC<QuestionProps> = ({ header, config }) => {
         setSelected('');
         setActive('');
         setHighlight('');
+        onChange('');
       } else {
         // If a different shape is clicked, update the selection
         setSelected(shape.name);
         setActive(shape.active);
         setHighlight(shape.highlight);
+        onChange(shape.name);
       }
     }
   };

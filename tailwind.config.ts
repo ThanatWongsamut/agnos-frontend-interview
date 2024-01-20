@@ -17,8 +17,8 @@ const config: Config = {
           DEFAULT: '#525252',
         },
         agnos_blue: {
-          light: '#01d1f7',
-          dark: '#042b6c',
+          light: '#04cdfb',
+          dark: '#01aaf3',
         },
       },
       screens: {
