@@ -4,8 +4,8 @@ export type Polygon = Coordinate[];
 
 export type ShapeDescription = {
   name: string;
-  active: string;
-  highlight: string;
+  active: string[];
+  highlight: string[];
 };
 
 export interface Mapping extends ShapeDescription {

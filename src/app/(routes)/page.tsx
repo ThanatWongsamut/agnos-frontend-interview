@@ -10,6 +10,7 @@ import Question from '@components/question/question';
 
 import AbsConfig from '@assets/config/abs-config.json';
 import HandConfig from '@assets/config/hand-config.json';
+
 import { Mapping } from '@/utils/types';
 
 const Page: FC = () => {
