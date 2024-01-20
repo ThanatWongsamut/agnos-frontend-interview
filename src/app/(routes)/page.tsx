@@ -40,21 +40,46 @@ const Page: FC = () => {
               จุดไหนที่คุณปวดนิ้วมากที่สุด ?
             </span>
             <div className="relative w-[339px] h-[400px] sm:h-[600px] sm:w-[509px]">
-              {/* Base Image */}
-              <Image
-                src="/image/default-finger.png"
-                fill={true}
-                style={{ objectFit: 'contain' }}
-                alt="1"
-              />
-
-              <div className="absolute top-0 left-0 h-full">
+              {/* Interactive Canvas */}
+              <div className="absolute z-30 top-0 left-0 h-full">
                 <InteractiveCanvas
                   boundary={HandPosition.boundary}
                   mapping={HandPosition.mapping}
                   onChange={canvasClickHandler}
                 />
               </div>
+
+              {/* Caption Image */}
+              {showCaption && (
+                <div className="absolute z-20 top-0 left-0 w-full h-full">
+                  <Image
+                    src={`/image/${selected}-active.png`}
+                    fill={true}
+                    style={{ objectFit: 'contain' }}
+                    alt="caption"
+                  />
+                </div>
+              )}
+
+              {/* Highlight Image */}
+              {showActive && (
+                <div className="absolute z-10 top-0 left-0 w-full h-full">
+                  <Image
+                    src={`/image/${selected}-highlight.png`}
+                    fill={true}
+                    style={{ objectFit: 'contain' }}
+                    alt="active"
+                  />
+                </div>
+              )}
+
+              {/* Base Image */}
+              <Image
+                src="/image/default-finger.png"
+                fill={true}
+                style={{ objectFit: 'contain' }}
+                alt="default"
+              />
             </div>
             {showCaption.toString()} {showActive.toString()} {selected}
           </div>
