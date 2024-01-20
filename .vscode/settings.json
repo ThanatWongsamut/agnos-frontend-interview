@@ -2,6 +2,7 @@
   "material-icon-theme.folders.associations": {
     "_assets": "resource",
     "_components": "components",
+    "_hooks": "hook",
     "(routes)": "routes"
   },
   "conventionalCommits.scopes": ["frontend"]
