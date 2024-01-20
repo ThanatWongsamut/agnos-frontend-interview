@@ -40,6 +40,10 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
     }
   };
 
+  const loader = ({ src }: { src: string }) => {
+    return `/image/${src}`;
+  };
+
   return (
     <>
       <div className="flex flex-col items-center h-full">
@@ -63,7 +67,8 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
                 key={path}
               >
                 <Image
-                  src={`/image/${path}`}
+                  src={path}
+                  loader={loader}
                   fill={true}
                   style={{ objectFit: 'contain' }}
                   alt="caption"
@@ -81,7 +86,8 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
                 key={path}
               >
                 <Image
-                  src={`/image/${path}`}
+                  src={path}
+                  loader={loader}
                   fill={true}
                   style={{ objectFit: 'contain' }}
                   alt="active"
@@ -93,7 +99,8 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
 
           {/* Base Image */}
           <Image
-            src={`/image/${config.default}`}
+            src={config.default}
+            loader={loader}
             fill={true}
             style={{ objectFit: 'contain' }}
             alt="default"
