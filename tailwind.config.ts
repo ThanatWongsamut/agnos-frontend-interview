@@ -21,6 +21,9 @@ const config: Config = {
           dark: '#042b6c',
         },
       },
+      screens: {
+        xs: '425px',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
