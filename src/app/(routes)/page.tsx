@@ -1,8 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
-
-import Head from 'next/head';
+import ReactDOM from 'react-dom';
 
 import Card from '@components/common/card';
 import Button from '@components/common/button';
@@ -11,12 +10,62 @@ import Question from '@components/question/question';
 import AbsConfig from '@assets/config/abs-config.json';
 import HandConfig from '@assets/config/hand-config.json';
 
-import { Mapping } from '@/utils/types';
+export function PreloadResources() {
+  // Load default image
+  ReactDOM.preload('/image/' + AbsConfig.default, {
+    as: 'image',
+    fetchPriority: 'high',
+  });
+
+  // Load others images
+  for (const shape of AbsConfig.mapping) {
+    for (const activePath of shape.active) {
+      ReactDOM.preload('/image/' + activePath, {
+        as: 'image',
+        fetchPriority: 'high',
+      });
+    }
+
+    for (const highlightPath of shape.active) {
+      ReactDOM.preload('/image/' + highlightPath, {
+        as: 'image',
+        fetchPriority: 'high',
+      });
+    }
+  }
+
+  // Load default image
+  ReactDOM.preload('/image/' + HandConfig.default, {
+    as: 'image',
+    fetchPriority: 'high',
+  });
+
+  // Load others images
+  for (const shape of HandConfig.mapping) {
+    for (const activePath of shape.active) {
+      ReactDOM.preload('/image/' + activePath, {
+        as: 'image',
+        fetchPriority: 'high',
+      });
+    }
+
+    for (const highlightPath of shape.active) {
+      ReactDOM.preload('/image/' + highlightPath, {
+        as: 'image',
+        fetchPriority: 'high',
+      });
+    }
+  }
+
+  return null;
+}
 
 const Page: FC = () => {
   const [questionState, setQuestionState] = useState<string>('abs');
   const [absAnswer, setAbsAnswer] = useState<string>('');
   const [fingerAnswer, setFingerAnswer] = useState<string>('');
+
+  PreloadResources();
 
   const absChangeHandler = (key: string) => {
     setAbsAnswer(key);
@@ -40,7 +89,7 @@ const Page: FC = () => {
   return (
     <>
       <main className="flex h-screen flex-col items-center justify-center bg-white">
-        <Head>
+        {/* <Head>
           <link rel="preload" href={`/image/${AbsConfig.default}`} as="image" />
 
           {AbsConfig.mapping.map((shape: Mapping) => {
@@ -56,7 +105,7 @@ const Page: FC = () => {
               <link key={shape.name} rel="preload" href={`/image/${shape.name}.png`} as="image" />
             );
           })}
-        </Head>
+        </Head> */}
 
         <div className="flex flex-col gap-4 w-full px-6 sm:w-[640px] md:w-[768px] mx-auto justify-center items-center">
           <Card className="h-full">

@@ -67,6 +67,7 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
                   fill={true}
                   style={{ objectFit: 'contain' }}
                   alt="caption"
+                  priority={true}
                 />
               </div>
             );
@@ -84,6 +85,7 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
                   fill={true}
                   style={{ objectFit: 'contain' }}
                   alt="active"
+                  priority={true}
                 />
               </div>
             );
