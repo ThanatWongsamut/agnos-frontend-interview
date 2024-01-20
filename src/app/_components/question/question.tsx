@@ -46,7 +46,7 @@ const Question: FC<QuestionProps> = ({ header, config, onChange }) => {
         <span className="text-lg xs:text-2xl font-medium text-gray-600 text-center">{header}</span>
         <div className="relative w-[339px] h-[400px] sm:h-[600px] sm:w-[509px]">
           {/* Interactive Canvas */}
-          <div className="absolute z-30 top-0 left-0 h-full">
+          <div className="absolute z-30 top-0 left-0 h-full w-full">
             <InteractiveCanvas
               boundary={config.boundary}
               mapping={config.mapping}
