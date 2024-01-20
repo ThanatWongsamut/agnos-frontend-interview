@@ -1,0 +1,8 @@
+{
+  "material-icon-theme.folders.associations": {
+    "_assets": "resource",
+    "_components": "components",
+    "(routes)": "routes"
+  },
+  "conventionalCommits.scopes": ["frontend"]
+}
